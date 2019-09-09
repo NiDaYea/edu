@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class About implements Serializable {
 
   private Integer aboutId;//shs
-  private String aboutDate;
+  private String aboutDate;//跟胡
   private String aboutTime;
   private Integer coachId;
   private Integer userId;
