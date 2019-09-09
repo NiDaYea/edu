@@ -11,7 +11,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class About implements Serializable {
 
-  private Integer aboutId;
+  private Integer aboutId;//shs
   private String aboutDate;
   private String aboutTime;
   private Integer coachId;
