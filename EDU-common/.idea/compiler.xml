@@ -11,5 +11,8 @@
         <module name="edu-provider" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="asd" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
