@@ -24,5 +24,6 @@ public class User implements Serializable {
   private Integer uservaluecarId;
   private String userSuDate;
   private Integer uservalueId;
-
+  //用户状态
+  private Integer userType;
 }
