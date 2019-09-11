@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -16,4 +17,6 @@ public class Topic implements Serializable {
   private String topicImg;
   private Integer topicCode;
 
+  //答案表
+  private List<Answer> listanswer;
 }

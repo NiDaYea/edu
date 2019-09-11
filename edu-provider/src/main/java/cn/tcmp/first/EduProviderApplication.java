@@ -1,4 +1,4 @@
-package cn.tcmp.first.eduprovider;
+package cn.tcmp.first;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

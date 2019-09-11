@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tcmp.first.dao.TopicMapper">
+
+    <resultMap id="TopicMap" type="Topic" autoMapping="true">
+        <id column="topicId" property="topicId" />
+        <association property="listanswer" resultMap="answerMap"/>
+    </resultMap>
+
+    <resultMap id="answerMap" type="Anwer" autoMapping="true">
+        <id column="anwerId" property="anwerId"/>
+    </resultMap>
+
+    <!--查询所有题目和对应的答案-->
+    <select id="queryAllTopic" parameterType="Integer" resultType="TopicMap">
+        SELECT * FROM topic,answer WHERE topic.`topicId`=answer.`topicId` AND topic.`topicCode`=#{topicCode} ORDER BY RAND()
+    </select>
+
+</mapper>
