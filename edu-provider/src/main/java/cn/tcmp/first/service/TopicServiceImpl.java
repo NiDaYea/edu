@@ -32,6 +32,6 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public List<Topic> queryByYIbai(Integer topicCode) {
-        return null;
+        return topicMapper.queryByYIbai(topicCode);
     }
 }
