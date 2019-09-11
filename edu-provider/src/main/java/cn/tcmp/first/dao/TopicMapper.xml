@@ -9,13 +9,18 @@
         <association property="listanswer" resultMap="answerMap"/>
     </resultMap>
 
-    <resultMap id="answerMap" type="Anwer" autoMapping="true">
+    <resultMap id="answerMap" type="Answer" autoMapping="true">
         <id column="anwerId" property="anwerId"/>
     </resultMap>
 
     <!--查询所有题目和对应的答案-->
     <select id="queryAllTopic" parameterType="Integer" resultType="TopicMap">
-        SELECT * FROM topic,answer WHERE topic.`topicId`=answer.`topicId` AND topic.`topicCode`=#{topicCode} ORDER BY RAND()
+        SELECT * FROM topic,answer WHERE topic.`topicId`=answer.`topicId` AND topic.`topicCode`=#{topicCode} ORDER BY RAND() LIMIT 100
+    </select>
+
+    <!--随机100道题和对应答案-->
+    <select id="queryByYIbai" parameterType="Integer" resultType="TopicMap">
+        SELECT * FROM topic,answer WHERE topic.`topicId`=answer.`topicId` AND topic.`topicCode`=#{topicCode} ORDER BY RAND() LIMIT 100
     </select>
 
 </mapper>
