@@ -22,4 +22,9 @@ public class Coach implements Serializable {
   private Integer coathGradevalueId;
   private Integer carId;
 
+  //教练的登陆账号呵呵密码
+  private String coachtel;
+  private String coachpass;
+
+
 }
