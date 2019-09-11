@@ -9,10 +9,10 @@
         <module name="EDU-common" />
         <module name="edu-consumer" />
         <module name="edu-provider" />
+        <module name="school-common" />
+        <module name="school-comsumer" />
+        <module name="school-provider" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="asd" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>
