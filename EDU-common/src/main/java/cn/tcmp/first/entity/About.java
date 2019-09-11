@@ -11,7 +11,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class About implements Serializable {
 
-  //我是张永赐 我是沙雕 提交来自demo8888  请大家即使更新
+
   private Integer aboutId;
   private String aboutDate;
   private String aboutTime;
