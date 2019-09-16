@@ -22,5 +22,4 @@
     <select id="queryByYIbai" parameterType="Integer" resultType="TopicMap">
         SELECT * FROM topic,answer WHERE topic.`topicId`=answer.`topicId` AND topic.`topicCode`=#{topicCode} ORDER BY RAND() LIMIT 100
     </select>
-
 </mapper>
