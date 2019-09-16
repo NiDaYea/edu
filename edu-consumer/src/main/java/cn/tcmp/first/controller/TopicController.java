@@ -1,6 +1,7 @@
 package cn.tcmp.first.controller;
 
 import cn.tcmp.first.service.TopicService;
+import jdk.nashorn.internal.ir.annotations.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +12,7 @@ import java.security.Provider;
 @Controller
 public class TopicController {
 
-    @Autowired
+    @Reference
     private TopicService topicService;
 
     //随机100道题目和答案

@@ -7,13 +7,14 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 @Service
 public class TopicServiceImpl implements TopicService {
 
-    @Reference
+    @Autowired
     private TopicMapper topicMapper;
 
     @Override
