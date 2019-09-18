@@ -20,9 +20,11 @@ public class TopicController {
     //随机100道题目和答案
     @RequestMapping("queryByYIbai")
     public String queryByYIbai(Integer topicCode, Model model){
-        List<Topic> topics = topicService.queryByYIbai(1);
-        String s = JSON.toJSONString(topics);
-        System.out.println(s);
+        List<Topic> topic = topicService.queryByYIbai(1);
+        for (Topic topic1 : topic) {
+            topic1.setListanswer(topicService.queryAnswer(topic1.getTopicId()));
+        }
+        String s = JSON.toJSONString(topic);
         model.addAttribute("topic", s);
         return "answer";
     }
