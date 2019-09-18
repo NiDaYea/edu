@@ -6,4 +6,7 @@ public interface UserService {
 
     //在线报名
     Integer saveUser(User user);
+
+    //修改用户密码
+    Integer updatePassword(User user);
 }

@@ -36,4 +36,8 @@ VALUES
     1
   );
     </insert>
+
+  <update id="updatePassword" parameterType="User">
+    update user set userPassword=#{userPassword} where userId=#{userId}
+  </update>
 </mapper>
