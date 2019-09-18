@@ -14,12 +14,12 @@
     </resultMap>
 
     <!--查询所有题目和对应的答案-->
-    <select id="queryAllTopic" parameterType="Integer" resultType="TopicMap">
+    <select id="queryAllTopic" parameterType="Integer" resultMap="TopicMap">
         SELECT * FROM topic,answer WHERE topic.`topicId`=answer.`topicId` AND topic.`topicCode`=#{topicCode} ORDER BY RAND() LIMIT 100
     </select>
 
     <!--随机100道题和对应答案-->
-    <select id="queryByYIbai" parameterType="Integer" resultType="TopicMap">
+    <select id="queryByYIbai" parameterType="Integer" resultMap="TopicMap">
         SELECT * FROM topic,answer WHERE topic.`topicId`=answer.`topicId` AND topic.`topicCode`=#{topicCode} ORDER BY RAND() LIMIT 100
     </select>
 </mapper>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>新东方驾校—驾驶员模拟考试练习</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="navbar navbar-inverse" style="background-color: #5bc0de">
+    <div class="container">
+        <a href="#" class="navbar-brand">logo</a>
+        <ul class="nav navbar-nav">
+            <li class=""><a href="#">首页</a></li>
+            <li class="active"><a href="#">模拟考试</a></li>
+            <li><a href="#">视频</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3 col-sm-push-9">
+            <h1>新东方驾校</h1>
+            <p></p>
+        </div>
+        <div class="col-sm-9 col-sm-pull-3">
+            <table style="border: 10px;">
+                <tr>
+                    <td colspan="3">&nbsp;&nbsp;<a href="#">小车</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">科目一</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">科目四</a></br></br></td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#" style="text-decoration: none">
+                            <img src="/images/顺序练习.png" height="120" width="230"/>&nbsp;&nbsp;&nbsp;&nbsp;</br></br>
+                            <center style="font-size: 18px">顺序练习</center></br></br>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#" style="text-decoration: none">
+                            <img src="/images/随机练习.png" height="120" width="230"/>&nbsp;&nbsp;&nbsp;&nbsp;</br></br>
+                            <center style="font-size: 18px">随机练习</center></br></br>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#" style="text-decoration: none">
+                            <img src="/images/章节练习.png" height="120" width="230"/>&nbsp;&nbsp;&nbsp;&nbsp;</br></br>
+                            <center style="font-size: 18px">章节练习</center></br></br>
+                        </a>
+                    </td>
+                </tr>
+                </br></br>
+                <tr>
+                    <td>
+                        <a href="#" style="text-decoration: none">
+                            <img src="/images/专项练习.png" height="120" width="230"/>&nbsp;&nbsp;&nbsp;&nbsp;</br></br>
+                            <center style="font-size: 18px">专项练习</center></br></br>
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="@{/queryByYIbai}" style="text-decoration: none">
+                            <img src="/images/模拟考试.png" height="120" width="230"/>&nbsp;&nbsp;&nbsp;&nbsp;</br></br>
+                            <center style="font-size: 18px">模拟考试</center></br></br>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#" style="text-decoration: none">
+                            <img src="/images/错题练习.png" height="120" width="230"/>&nbsp;&nbsp;&nbsp;&nbsp;</br></br>
+                            <center style="font-size: 18px">错题练习</center></br></br>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery-3.4.1.min.js"></script>
+</body>
+</html>

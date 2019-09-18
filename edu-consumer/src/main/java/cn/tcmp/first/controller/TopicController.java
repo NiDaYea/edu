@@ -1,13 +1,15 @@
 package cn.tcmp.first.controller;
 
+import cn.tcmp.first.entity.Topic;
 import cn.tcmp.first.service.TopicService;
-import jdk.nashorn.internal.ir.annotations.Reference;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.fastjson.JSON;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Provider;
+import java.util.List;
 
 @Controller
 public class TopicController {
@@ -18,9 +20,17 @@ public class TopicController {
     //随机100道题目和答案
     @RequestMapping("queryByYIbai")
     public String queryByYIbai(Integer topicCode, Model model){
+        List<Topic> topics = topicService.queryByYIbai(1);
+        String s = JSON.toJSONString(topics);
+        System.out.println(s);
+        model.addAttribute("topic", s);
+        return "answer";
+    }
 
-        System.out.println( topicService.queryByYIbai(topicCode));
-        return "404";
+    //考试分类选择页面
+    @RequestMapping("toKaoShi")
+    public String toKaoShi(){
+        return "kaoshi";
     }
 
 }
