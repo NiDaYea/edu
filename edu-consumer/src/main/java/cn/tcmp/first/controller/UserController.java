@@ -1,6 +1,7 @@
 package cn.tcmp.first.controller;
 
 import cn.tcmp.first.entity.User;
+import cn.tcmp.first.service.TypeService;
 import cn.tcmp.first.service.UserService;
 import com.alibaba.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Controller;
@@ -15,10 +16,15 @@ public class UserController {
     @Reference
     private UserService userService;
 
+    @Reference
+    private TypeService typeService;
+
     //去在线报名页面
     @RequestMapping("toSaveUser")
-    public String toSaveUser() {
-        return "";
+    public String toSaveUser(Model model) {
+        model.addAttribute("driver",typeService.queryDriving());
+        model.addAttribute("enroll",typeService.queryEnroll());
+        return "enroll";
     }
 
     //在线报名操作
@@ -41,6 +47,7 @@ public class UserController {
 
 
     //做修改密码操作
+    @RequestMapping("doupdatePassword")
     public String doupdatePassword(User user,Model model) {
 
         return "";

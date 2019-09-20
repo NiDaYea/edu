@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+<br/>
+<br/>
+<br/>
+<div class="row">
+    <div class="col-md-2 col-md-offset-2">
+        <div class="btn-group-vertical" role="group" aria-label="...">
+            <button type="button" class="btn btn-default">在线报名</button>
+            <button type="button" class="btn btn-default">班型及价格</button>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <form>
+            <div class="form-group">
+                <label for="userName">姓名</label>
+                <input type="text" class="form-control" id="userName" placeholder="姓名" style="text-align: center">
+            </div>
+            <div class="form-group">
+                <label for="userAge">年龄</label>
+                <input type="userAge" class="form-control" id="userAge" placeholder="年龄" style="text-align: center">
+            </div>
+            <div class="form-group">
+                <label for="userSex">性别</label>
+                  <div ><select name="userSex" id="userSex" style="height: 30px;text-align:center;text-align-last:center" class="col-md-12">
+                        <option value="1" selected="selected" style="align-content: center"><span style="margin: 50%">男</span></option>
+                        <option value="2" style="text-align:center;text-align-last:center">女</option>
+                    </select>
+                  </div>
+            </div>
+            <br>
+            <br>
+            <div class="form-group">
+                <label for="userNum">身份证号</label>
+                <input type="text" class="form-control" id="userNum" placeholder="身份证号" style="text-align: center">
+            </div>
+            <div class="form-group">
+                <label for="userTel">手机号</label>
+                <input type="text" class="form-control" id="userTel" placeholder="手机号" style="text-align: center">
+            </div>
+            <div class="form-group">
+                <label for="userDate">出生日期</label>
+                <input type="text" class="form-control" id="userDate" placeholder="出生日期(yyyy-MM-dd)" style="text-align: center">
+            </div>
+            <div class="form-group">
+                <label for="userAddress">用户地址</label>
+                <input type="text" class="form-control" id="userAddress" placeholder="用户地址" style="text-align: center">
+            </div>
+            <div class="form-group">
+                <label for="userCountry">国籍</label>
+                <input type="text" class="form-control" id="userCountry" value="中国" disabled="disabled" style="text-align: center">
+                <span style="color: red">其他国家暂未开放</span>
+            </div>
+            <div class="form-group">
+                <label for="uservaluecarId">驾照类型</label>
+                <div ><select name="userSex" id="uservaluecarId" style="height: 30px;text-align:center;text-align-last:center" class="col-md-12" >
+                   <span th:each="list:${driver}" th:object="${list}">
+                        <option th:value="*{valueId}"  th:text="*{valueName}"></option>
+                    </span>
+                </select>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="form-group">
+                <label for="uservalueId">报名类型</label>
+                <div ><select name="userSex" id="uservalueId" style="height: 30px;text-align:center;text-align-last:center" class="col-md-12" >
+                    <span th:each="list:${enroll}" th:object="${list}">
+                        <option th:value="*{valueId}"  th:text="*{valueName}"></option>
+                    </span>
+                </select>
+                </div>
+            </div>
+            <br>
+            <br>
+          <center><button type="button" class="btn-group btn-group-justified" role="group">报名</button></center>
+            <br>
+            <br>
+            <br>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>
