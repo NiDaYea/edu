@@ -16,4 +16,9 @@ public class UserServiceImpl implements UserService{
     public Integer saveUser(User user) {
         return userMapper.saveUser(user);
     }
+
+    @Override
+    public Integer updatePassword(User user) {
+        return userMapper.updatePassword(user);
+    }
 }
