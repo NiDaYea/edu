@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tcmp.dao.UserMapper">
+    <resultMap id="uMap" type="User" autoMapping="true">
+        <id column="userId" property="userId"/>
+        <association property="type" resultMap="tMap"/>
+        <association property="type2" resultMap="tMap2"/>
+        <association property="fees" resultMap="fMap"/>
+    </resultMap>
+    <resultMap id="tMap" type="Type" autoMapping="true">
+        <id column="typeId" property="typeId"/>
+        <result column="type.valueName" property="valueName"/>
+    </resultMap>
+    <resultMap id="tMap2" type="Type" autoMapping="true">
+        <id column="typeId" property="typeId"/>
+        <result column="type2.valueName" property="valueName"/>
+    </resultMap>
+    <resultMap id="fMap" type="Fees" autoMapping="true">
+        <id column="feesid" property="feesid"/>
+    </resultMap>
+        <select id="queryAll" parameterType="User" resultMap="uMap">
+            SELECT u.*,f.feesid,f.classType, t2.typeCode,t2.typeName,t2.valueId,t2.valueName AS `type2.valueName`
+            FROM USER u,TYPE t2,fees f
+            WHERE u.uservalueId=f.feesid
+            AND u.uservaluecarId=t2.valueId AND t2.typeCode='8'
+            <!--  <if test="userName!=null || userName!=''">
+                  and u.userName like concat ('%',#{userName},'%')
+              </if>-->
+        </select>
+</mapper>

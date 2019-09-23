@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:replace="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/js/jquery-2.1.4.min.js"></script>
+    <link rel="stylesheet" href="/js/css/bootstrap.css">
+    <script src="/js/js/bootstrap.js"></script>
+    <script src="/js/page.js"></script>
+    <script type="text/javascript">
+        $(function () {
+           $("#addCoath").click(function () {
+                $("#addcoathModel").modal("show");
+            })
+            $("#addButton").click(function () {
+                var data=$("#addCoathForm").serialize();
+                $.post("/school/addCoach",data,function (result) {
+                    if(result=='ok'){
+                        location.href="/school/queryAllcoach";
+                    }else{
+                        alert("添加错误");
+                    }
+                })
+            })
+            $.get("/school/queryCar","carvalueId=1",function (result) {
+                $("#car").append("<option value='-1'>请选择</option>");
+                       $.each(result,function (index,i) {
+                    $("#car").append("<option value='"+i.carId+"'>"+i.carNum+"</option>")
+                })
+            })
+        })
+
+
+    </script>
+
+</head>
+<body>
+<div role="tabpanel" class="tab-pane" id="char">
+    <div class="check-div">
+        <button id="addCoath" class="btn btn-yellow btn-xs" data-toggle="modal" >新增教练</button>
+    </div>
+    <div class="data-div">
+        <table class="table" border="1" cellspacing="1">
+            <tr>
+                <td>教练名称</td>
+                <td>教练性别</td>
+                <td>教练手机号</td>
+                <td>教练年龄</td>
+                <td>教练身份证号码</td>
+                <td>教练状态</td>
+                <td>入职时间</td>
+                <td>所教科目</td>
+                <td>所属车辆</td>
+            </tr>
+            <tr th:each="list:${pageUtil.list}" th:object="${list}">
+                <td th:text="*{coathName}"></td>
+                <td th:text="*{coathSex}"></td>
+                <td th:text="*{coachtel}"></td>
+                <td th:text="*{coathAge}">a</td>
+                <td th:text="*{coathNum}">a</td>
+                <td th:text="*{type2.valueName}">a</td>
+                <td th:text="*{coathDate}">a</td>
+                <td th:text="*{type.valueName}">a</td>
+                <td th:text="*{car.carNum}">a</td>
+
+            </tr>
+        </table>
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li>
+                    <a href="#" aria-label="Previous"
+                       th:no="${pageUtil.pageNo>1}?${pageUtil.pageNo-1}:1"
+                    >
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li th:each="no:${pageUtil.navigatepageNums}"
+                    th:class="${pageUtil.pageNo eq no}?'active':''"
+                >
+                    <a th:text="${no}" th:no="${no}" href="#"></a></li>
+                <li>
+                    <a href="#"
+                       th:no="${pageUtil.pageNo>=pageUtil.totalPageCount}?${pageUtil.totalPageCount}:${pageUtil.pageNo+1}"
+                       aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!--新增教练模态框-->
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="addcoathModel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">教练基本信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" method="post" enctype="multipart/form-data" id="addCoathForm">
+                            <table>
+                                <tr>
+                                    <td>教练姓名</td>
+                                    <td>
+                                        <input type="text" name="coathName">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>教练性别</td>
+                                    <td>
+                                        <input type="text" name="coathSex">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>教练手机号</td>
+                                    <td>
+                                        <input type="text" name="coachtel">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>教练年龄</td>
+                                    <td>
+                                        <input type="text" name="coathAge">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>教练身份证号</td>
+                                    <td>
+                                        <input type="text" name="coathNum">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>教练在职状态</td>
+                                    <td>
+                                        <select name="coathStatevalueId" >
+                                            <option value="1">在职</option>
+                                            <option value="2">请假</option>
+                                            <option value="3">离职</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>所教科目</td>
+                                    <td>
+                                        <select name="coathGradevalueId" >
+                                            <option value="1">A本</option>
+                                            <option value="1">B本</option>
+                                            <option value="1">C本</option>
+                                            <option value="1">D本</option>
+                                            <option value="1">E本</option>
+                                            <option value="1">F本</option>
+                                            <option value="1">M本</option>
+                                            <option value="1">N本</option>
+                                            <option value="1">P本</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>所属车辆</td>
+                                    <td>
+                                        <select name="carId" id="car">
+                                        </select>
+                                    </td>
+                                </tr>
+
+                            </table>
+                            <button type="button" class="btn btn-default" id="addButton">添加</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+    </div>
+</div>
+</body>
+</html>

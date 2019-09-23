@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/js/jquery-2.1.4.min.js"></script>
+    <link rel="stylesheet" href="/js/css/bootstrap.css">
+    <script src="/js/js/bootstrap.js"></script>
+    <script src="/js/page.js"></script>
+</head>
+<body>
+<div role="tabpanel" class="tab-pane active" id="sour">
+
+    <div class="data-div">
+        <table class="table" border="1" cellspacing="1">
+            <tr>
+                <td>学员姓名</td>
+                <td>学员年龄</td>
+                <td>学员性别</td>
+                <td>学员身份证号</td>
+                <td>学员手机号</td>
+                <td>出生日期</td>
+                <td>学员地址</td>
+                <td>学员国籍</td>
+                <td>驾照类型</td>
+                <td>报名日期</td>
+                <td>报名类型</td>
+                <td>学习进度</td>
+            </tr>
+            <tr th:each="list:${pageUtil.list}" th:object="${list}">
+                <td th:text="*{userName}"></td>
+                <td th:text="*{userAge}"></td>
+                <td th:text="*{userSex}"></td>
+                <td th:text="*{userNum}">a</td>
+                <td th:text="*{userTel}">a</td>
+                <td th:text="*{userDate}">a</td>
+                <td th:text="*{userAddress}">a</td>
+                <td th:text="*{userCountry}">a</td>
+               <td th:text="*{type2.valueName}">a</td>
+                <td th:text="*{userSuDate}">a</td>
+                <td th:text="*{fees.classType}">a</td>
+                <td th:if="*{userJingDu ==1}">
+                  <span th:text="科目一"></span>
+              </td>
+                <td th:if="*{userJingDu ==2}">
+                    <span th:text="科目一"></span>
+                </td>
+                <td th:if="*{userJingDu ==3}">
+                    <span th:text="科目一"></span>
+                </td>
+            </tr>
+
+        </table>
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li>
+                    <a href="#" aria-label="Previous"
+                       th:no="${pageUtil.pageNo>1}?${pageUtil.pageNo-1}:1"
+                    >
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li th:each="no:${pageUtil.navigatepageNums}"
+                    th:class="${pageUtil.pageNo eq no}?'active':''"
+                >
+                    <a th:text="${no}" th:no="${no}" href="#"></a></li>
+                <li>
+                    <a href="#"
+                       th:no="${pageUtil.pageNo>=pageUtil.totalPageCount}?${pageUtil.totalPageCount}:${pageUtil.pageNo+1}"
+                       aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+</body>
+</html>
