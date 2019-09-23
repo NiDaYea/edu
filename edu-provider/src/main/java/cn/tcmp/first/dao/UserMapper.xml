@@ -38,8 +38,10 @@ VALUES
     </insert>
 
   <update id="updatePassword" parameterType="User">
-    update user set userPassword=#{userPassword} where userId=#{userId}
+    update user set userPassword=#{userPassword},userTel=#{userTel},userAddress=#{userAddress} where userId=#{userId}
   </update>
 
-
+  <select id="detailUser" parameterType="integer" resultType="cn.tcmp.first.entity.User">
+    select * from user where userId=#{userId}
+  </select>
 </mapper>

@@ -43,69 +43,82 @@
                 var uservalueId=$("#uservalueId").val();
 
                 if (userName == null || userName == '') {
-                    alert("姓名不能为空!");
+                    $("#point").modal("show");
+                    $("#prompt").html("姓名不能为空!");
                     return;
                 }
                 if (userAge == null || userAge == '') {
-                    alert("年龄不能为空!");
+                    $("#point").modal("show");
+                    $("#prompt").html("年龄不能为空!");
                     return;
                 }
                 if (userAge <18) {
-                    alert("年龄必须大于18周岁,方可报名!");
+                    $("#point").modal("show");
+                    $("#prompt").html("年龄必须大于18周岁,方可报名!");
                     return;
                 }
                 if (userSex == "-1") {
-                    alert("请选择性别!");
+                    $("#point").modal("show");
+                    $("#prompt").html("请选择性别!");
                     return;
                 }
                 if (userNum == null || userNum == '') {
-                    alert("身份证件不能为空!");
+                    $("#point").modal("show");
+                    $("#prompt").html("身份证件不能为空");
                     return;
                 }
                 var reg=/^[1-9]{1}[0-9]{14}$|^[1-9]{1}[0-9]{16}([0-9]|[xX])$/;
                 if(!reg.test(userNum)) {
-                    alert("身份证错误请重新输入!");
+                    $("#point").modal("show");
+                    $("#prompt").html("身份证错误请重新输入");
                     return;
                 }
                 /*if (userNum.length() != 18) {
                     alert("身份证错误请重新输入!");
                 }*/
                 if (userTel == null || userTel == '') {
-                    alert("联系电话不能为空!");
+                    $("#point").modal("show");
+                    $("#prompt").html("联系电话不能为空");
                     return;
                 }
               var tel=/^1(3[0-9]|5[012356789]|7[678]|8[0-9]|4[57])[0-9]{8}$/;
                 if(!tel.test(userTel)){
-                    alert("联系电话输入错误!");
+                    $("#point").modal("show");
+                    $("#prompt").html("联系电话输入错误");
                     return;
                 }
 
                 if (userDate == null || userDate == '') {
-                    alert("出生日期不能为空!");
+                    $("#point").modal("show");
+                    $("#prompt").html("出生日期不能为空");
                     return;
                 }
                 if (userAddress == null || userAddress == '') {
-                    alert("家庭住址不能为空!");
+                    $("#point").modal("show");
+                    $("#prompt").html("家庭住址不能为空");
                     return;
                 }
                 if (uservaluecarId == "-1") {
-                    alert("请选择预考驾照类型!");
+                    $("#point").modal("show");
+                    $("#prompt").html("请选择预考驾照类型");
                     return;
                 }
                 if (uservalueId == "-1") {
-                    alert("请选择班型!");
+                    $("#point").modal("show");
+                    $("#prompt").html("请选择班型");
                     return;
                 }
 
                 var data=$("#SaveForm").serialize();
                 $.post("/doSaveUser",data,function (result) {
                     if (result == 'ok') {
-                        alert("报名成功!");
+                        $("#point").modal("show");
+                        $("#prompt").html("报名成功");
                     } else {
-                        alert("报名失败!");
+                        $("#point").modal("show");
+                        $("#prompt").html("报名失败");
                     }
                 })
-                alert(data);
             });
         })
     </script>
@@ -125,6 +138,7 @@
             <div class="form-group">
                 <label for="userName">姓名</label>
                 <input type="text" class="form-control" id="userName" name="userName" placeholder="姓名" style="text-align: center">
+                <span style="color: red">账号登陆唯一标识,以经填写不可修改,请牢记</span>
             </div>
             <div class="form-group">
                 <label for="userAge">年龄</label>
@@ -156,6 +170,7 @@
             <div class="form-group">
                 <label for="userAddress">用户地址</label>
                 <input type="text" class="form-control" id="userAddress" name="userAddress" placeholder="用户地址" style="text-align: center">
+                <span style="color: red">这是班车接送地址,请填写现住址</span>
             </div>
             <div class="form-group">
                 <label for="userCountry">国籍</label>
@@ -178,9 +193,6 @@
                 <label for="uservalueId">报名类型</label>
                 <div ><select name="uservalueId" id="uservalueId" style="height: 30px;width: 100%;text-align:center;text-align-last:center" class="col-md-12" >
                     <option value="-1">--请选择--</option>
-                    <!--<span th:each="list:${fees}" th:object="${list}">
-                        <option th:value="*{feesid}"  th:text="*{classType}"></option>
-                    </span>-->
                 </select>
                     <span style="color: red">详情请对照班型及价格介绍</span>
                 </div>
@@ -193,7 +205,22 @@
             <br>
         </form>
     </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="point">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">信息提示</h4>
+                </div>
+                <div class="modal-body" id="prompt">
 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
 </div>
 </body>
 </html>

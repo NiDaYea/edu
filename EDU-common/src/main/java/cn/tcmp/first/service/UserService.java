@@ -13,5 +13,8 @@ public interface UserService {
     //修改用户密码
     Integer updatePassword(User user);
 
+    //查询当前用户信息
+    User detailUser(Integer userId);
+
 
 }

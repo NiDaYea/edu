@@ -1,5 +1,6 @@
 package cn.tcmp.first.controller;
 
+import cn.tcmp.first.dto.TokenDto;
 import cn.tcmp.first.entity.User;
 import cn.tcmp.first.service.FeesService;
 import cn.tcmp.first.service.TypeService;
@@ -11,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.net.HttpCookie;
 
 @Controller
 public class UserController {
@@ -52,16 +55,22 @@ public class UserController {
 
     //去修改密码
     @RequestMapping("toupdatePassword")
-    public String toupdatePassword( Model model) {
-        return "";
+    public String toupdatePassword(Model model, Integer userId) {
+        model.addAttribute("user",userService.detailUser(userId));
+        return "updatePass";
     }
 
 
     //做修改密码操作
-    @RequestMapping("doupdatePassword")
-    public String doupdatePassword(User user,Model model) {
-
-        return "";
+    @ResponseBody
+    @RequestMapping(value = "doupdatePassword",method = RequestMethod.POST)
+    public String doupdatePassword(User user) {
+        Integer count=userService.updatePassword(user);
+        if (count > 0) {
+            return "ok";
+        } else {
+            return "error";
+        }
     }
 
 

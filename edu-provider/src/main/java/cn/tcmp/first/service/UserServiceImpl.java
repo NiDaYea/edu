@@ -22,4 +22,9 @@ public class UserServiceImpl implements UserService{
         return userMapper.updatePassword(user);
     }
 
+    @Override
+    public User detailUser(Integer userId) {
+        return userMapper.detailUser(userId);
+    }
+
 }
