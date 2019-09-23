@@ -13,4 +13,7 @@ public interface TopicMapper {
 
     //根据题目id查询答案
     List<Answer> queryAnswer(Integer topicId);
+
+    //顺序练习  查所有题和对应答案 条件科几
+    List<Topic> queryAll(Integer topicCode);
 }

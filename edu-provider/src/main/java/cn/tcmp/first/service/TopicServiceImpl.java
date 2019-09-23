@@ -23,4 +23,9 @@ public class TopicServiceImpl implements TopicService {
     public List<Answer> queryAnswer(Integer topicId) {
         return topicMapper.queryAnswer(topicId);
     }
+
+    @Override
+    public List<Topic> queryAll(Integer topicCode) {
+        return topicMapper.queryAll(topicCode);
+    }
 }
