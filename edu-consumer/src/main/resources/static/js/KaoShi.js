@@ -62,7 +62,10 @@ function  xia() {
             }
             var titou=index+1;
             $("#timu").html(titou+"."+result.topicName);
-            $.each(result.listanswer,function(index1,result1){
+            var luanxu=(result.listanswer).sort(function () {
+                return Math.random() > 0.5 ? -1:1;
+            })
+            $.each(luanxu,function(index1,result1){
                 if(result1.answerCode==1){
                     an=index1;
                 }
@@ -148,7 +151,10 @@ function  shang() {
             }
             var titou=index+1;
             $("#timu").html(titou+"."+result.topicName);
-            $.each(result.listanswer,function(index1,result1){
+            var luanxu=(result.listanswer).sort(function () {
+                return Math.random() > 0.5 ? -1:1;
+            })
+            $.each(luanxu,function(index1,result1){
                 if(result1.answerCode==1){
                     an=index1;
                 }
