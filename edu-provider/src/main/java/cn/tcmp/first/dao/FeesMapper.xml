@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tcmp.first.dao.FeesMapper">
+
+    <select id="queryAll" resultType="cn.tcmp.first.entity.Fees">
+        select * from fees
+    </select>
+
+    <select id="queryClass" parameterType="String" resultType="cn.tcmp.first.entity.Fees">
+        SELECT feesid,classType FROM fees WHERE license=#{license}
+    </select>
+</mapper>

@@ -2,37 +2,140 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>在线报名</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <!--<link rel="stylesheet" href="/css/style.css">-->
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            var userName=$("#userName").val();
+            var userAge=$("#userAge").val();
+            var userSex=$("#userSex").val();
+            var userNum=$("#userNum").val();
+            var userTel=$("#userTel").val();
+            var userDate=$("#userDate").val();
+            var userAddress=$("#userAddress").val();
+            var userCountry=$("#userCountry").val();
+            var uservaluecarId=$("#uservaluecarId").val();
+            var uservalueId=$("#uservalueId").val();
+            $("#uservaluecarId").change(function () {
+                var license = $("#uservaluecarId").find("option:selected").text();
+               $("#uservalueId").empty();
+                $.get('/queryClass', 'license=' + license, function (result) {
+                    $("#uservalueId").append("<option value='-1'>--请选择--</option>");
+                    $.each(result, function (index,d) {
+                        $("#uservalueId").append("<option value='" + d.feesid + "'>" + d.classType + "</option>");
+                    });
+                })
+            });
+
+            $("#SaveButton").click(function () {
+                var userName=$("#userName").val();
+                var userAge=$("#userAge").val();
+                var userSex=$("#userSex").val();
+                var userNum=$("#userNum").val();
+                var userTel=$("#userTel").val();
+                var userDate=$("#userDate").val();
+                var userAddress=$("#userAddress").val();
+                var userCountry=$("#userCountry").val();
+                var uservaluecarId=$("#uservaluecarId").val();
+                var uservalueId=$("#uservalueId").val();
+
+                if (userName == null || userName == '') {
+                    alert("姓名不能为空!");
+                    return;
+                }
+                if (userAge == null || userAge == '') {
+                    alert("年龄不能为空!");
+                    return;
+                }
+                if (userAge <18) {
+                    alert("年龄必须大于18周岁,方可报名!");
+                    return;
+                }
+                if (userSex == "-1") {
+                    alert("请选择性别!");
+                    return;
+                }
+                if (userNum == null || userNum == '') {
+                    alert("身份证件不能为空!");
+                    return;
+                }
+                var reg=/^[1-9]{1}[0-9]{14}$|^[1-9]{1}[0-9]{16}([0-9]|[xX])$/;
+                if(!reg.test(userNum)) {
+                    alert("身份证错误请重新输入!");
+                    return;
+                }
+                /*if (userNum.length() != 18) {
+                    alert("身份证错误请重新输入!");
+                }*/
+                if (userTel == null || userTel == '') {
+                    alert("联系电话不能为空!");
+                    return;
+                }
+              var tel=/^1(3[0-9]|5[012356789]|7[678]|8[0-9]|4[57])[0-9]{8}$/;
+                if(!tel.test(userTel)){
+                    alert("联系电话输入错误!");
+                    return;
+                }
+
+                if (userDate == null || userDate == '') {
+                    alert("出生日期不能为空!");
+                    return;
+                }
+                if (userAddress == null || userAddress == '') {
+                    alert("家庭住址不能为空!");
+                    return;
+                }
+                if (uservaluecarId == "-1") {
+                    alert("请选择预考驾照类型!");
+                    return;
+                }
+                if (uservalueId == "-1") {
+                    alert("请选择班型!");
+                    return;
+                }
+
+                var data=$("#SaveForm").serialize();
+                $.post("/doSaveUser",data,function (result) {
+                    if (result == 'ok') {
+                        alert("报名成功!");
+                    } else {
+                        alert("报名失败!");
+                    }
+                })
+                alert(data);
+            });
+        })
+    </script>
+
 
 </head>
 <body>
-<br/>
-<br/>
-<br/>
+
+
+
+
+
 <div class="row">
-    <div class="col-md-2 col-md-offset-2">
-        <div class="btn-group-vertical" role="group" aria-label="...">
-            <button type="button" class="btn btn-default">在线报名</button>
-            <button type="button" class="btn btn-default">班型及价格</button>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <form>
+
+    <div class="col-md-12 ">
+        <form id="SaveForm">
             <div class="form-group">
                 <label for="userName">姓名</label>
-                <input type="text" class="form-control" id="userName" placeholder="姓名" style="text-align: center">
+                <input type="text" class="form-control" id="userName" name="userName" placeholder="姓名" style="text-align: center">
             </div>
             <div class="form-group">
                 <label for="userAge">年龄</label>
-                <input type="userAge" class="form-control" id="userAge" placeholder="年龄" style="text-align: center">
+                <input type="userAge" class="form-control" id="userAge" name="userAge" placeholder="年龄" style="text-align: center">
             </div>
             <div class="form-group">
                 <label for="userSex">性别</label>
-                  <div ><select name="userSex" id="userSex" style="height: 30px;text-align:center;text-align-last:center" class="col-md-12">
-                        <option value="1" selected="selected" style="align-content: center"><span style="margin: 50%">男</span></option>
-                        <option value="2" style="text-align:center;text-align-last:center">女</option>
+                  <div ><select name="userSex" id="userSex" style="height: 30px;width: 100%;text-align:center;text-align-last:center" class="col-md-12">
+                        <option value="-1">--请选择--</option>
+                        <option value="男" >男</option>
+                        <option value="女" >女</option>
                     </select>
                   </div>
             </div>
@@ -40,28 +143,29 @@
             <br>
             <div class="form-group">
                 <label for="userNum">身份证号</label>
-                <input type="text" class="form-control" id="userNum" placeholder="身份证号" style="text-align: center">
+                <input type="text" class="form-control" id="userNum" name="userNum" placeholder="身份证号" style="text-align: center">
             </div>
             <div class="form-group">
                 <label for="userTel">手机号</label>
-                <input type="text" class="form-control" id="userTel" placeholder="手机号" style="text-align: center">
+                <input type="text" class="form-control" id="userTel" name="userTel" placeholder="手机号(暂不支持固定电话)" style="text-align: center">
             </div>
             <div class="form-group">
                 <label for="userDate">出生日期</label>
-                <input type="text" class="form-control" id="userDate" placeholder="出生日期(yyyy-MM-dd)" style="text-align: center">
+                <input type="text" class="form-control" id="userDate" name="userDate" placeholder="出生日期(yyyy-MM-dd)" style="text-align: center">
             </div>
             <div class="form-group">
                 <label for="userAddress">用户地址</label>
-                <input type="text" class="form-control" id="userAddress" placeholder="用户地址" style="text-align: center">
+                <input type="text" class="form-control" id="userAddress" name="userAddress" placeholder="用户地址" style="text-align: center">
             </div>
             <div class="form-group">
                 <label for="userCountry">国籍</label>
-                <input type="text" class="form-control" id="userCountry" value="中国" disabled="disabled" style="text-align: center">
+                <input type="text" class="form-control" id="userCountry" name="userCountry" value="中国" disabled="disabled" style="text-align: center">
                 <span style="color: red">其他国家暂未开放</span>
             </div>
             <div class="form-group">
-                <label for="uservaluecarId">驾照类型</label>
-                <div ><select name="userSex" id="uservaluecarId" style="height: 30px;text-align:center;text-align-last:center" class="col-md-12" >
+                <label for="uservaluecarId">预报驾照类型</label>
+                <div ><select name="uservaluecarId" id="uservaluecarId"  style="height: 30px;width: 100%;text-align:center;text-align-last:center" class="col-md-12">
+                    <option value="-1">--请选择--</option>
                    <span th:each="list:${driver}" th:object="${list}">
                         <option th:value="*{valueId}"  th:text="*{valueName}"></option>
                     </span>
@@ -72,16 +176,18 @@
             <br>
             <div class="form-group">
                 <label for="uservalueId">报名类型</label>
-                <div ><select name="userSex" id="uservalueId" style="height: 30px;text-align:center;text-align-last:center" class="col-md-12" >
-                    <span th:each="list:${enroll}" th:object="${list}">
-                        <option th:value="*{valueId}"  th:text="*{valueName}"></option>
-                    </span>
+                <div ><select name="uservalueId" id="uservalueId" style="height: 30px;width: 100%;text-align:center;text-align-last:center" class="col-md-12" >
+                    <option value="-1">--请选择--</option>
+                    <!--<span th:each="list:${fees}" th:object="${list}">
+                        <option th:value="*{feesid}"  th:text="*{classType}"></option>
+                    </span>-->
                 </select>
+                    <span style="color: red">详情请对照班型及价格介绍</span>
                 </div>
             </div>
             <br>
             <br>
-          <center><button type="button" class="btn-group btn-group-justified" role="group">报名</button></center>
+          <center><button type="button" class="btn-group btn-group-justified" role="group" id="SaveButton">报名</button></center>
             <br>
             <br>
             <br>
