@@ -14,7 +14,7 @@ public interface CarService {
     //查询所有可用车辆
     List<Car> queryCar(Integer carvalueId);
     //修改车辆信息
-    Integer updateCar(Integer carId);
+    Integer updateCar(Car car);
     //查询一个车辆的信息
     Car queryoneCar(Integer carId);
 

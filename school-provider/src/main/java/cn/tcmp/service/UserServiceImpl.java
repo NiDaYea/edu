@@ -28,4 +28,14 @@ public class UserServiceImpl implements UserService {
         pageUtil.setList(pageInfo.getList());
         return pageUtil;
     }
+
+    @Override
+    public User loginUser(User user) {
+        return userMapper.loginUser(user);
+    }
+
+    @Override
+    public Integer updateUserType(Integer userId) {
+        return userMapper.updateUserType(userId);
+    }
 }

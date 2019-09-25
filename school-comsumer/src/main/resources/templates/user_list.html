@@ -7,8 +7,25 @@
     <link rel="stylesheet" href="/js/css/bootstrap.css">
     <script src="/js/js/bootstrap.js"></script>
     <script src="/js/page.js"></script>
+    <script type="text/javascript">
+        $(function () {
+         $("input[name='inspect']").click(function () {
+               var data=$("#userForm").serialize();
+               var userId=$(this).attr("userId");
+               $.post("/user/updateUserType","userId="+userId+"&"+data,function (result) {
+                   if(result=='ok'){
+                       alert("审核通过");
+                       location.href="/user/queryAllUser";
+                   }else{
+                       alert("审核未通过");
+                   }
+               })
+         })
+        })
+    </script>
 </head>
 <body>
+<form method="post" id="userForm">
 <div role="tabpanel" class="tab-pane active" id="sour">
 
     <div class="data-div">
@@ -26,9 +43,10 @@
                 <td>报名日期</td>
                 <td>报名类型</td>
                 <td>学习进度</td>
+                <td>操作</td>
             </tr>
             <tr th:each="list:${pageUtil.list}" th:object="${list}">
-                <td th:text="*{userName}"></td>
+                <td  style="color: #2aabd2" th:text="*{userName}"></td>
                 <td th:text="*{userAge}"></td>
                 <td th:text="*{userSex}"></td>
                 <td th:text="*{userNum}">a</td>
@@ -47,6 +65,11 @@
                 </td>
                 <td th:if="*{userJingDu ==3}">
                     <span th:text="科目一"></span>
+                </td>
+                <td>
+                    <input type="button" th:userId="*{userId}" th:if="*{userType==1}" name="inspect" th:value="审核">
+                    <input type="button" disabled="disabled" th:if="*{userType==2}" th:value="已审核">
+
                 </td>
             </tr>
 
@@ -75,5 +98,6 @@
         </nav>
     </div>
 </div>
+</form>
 </body>
 </html>

@@ -4,6 +4,7 @@ import cn.tcmp.entity.Car;
 import cn.tcmp.entity.Coach;
 import cn.tcmp.entity.User;
 import cn.tcmp.service.CarService;
+import cn.tcmp.service.CoachService;
 import cn.tcmp.service.SchoolService;
 import cn.tcmp.service.UserService;
 import cn.tcmp.util.pageutil.PageUtil;
@@ -24,11 +25,13 @@ public class SchoolController {
     private SchoolService schoolService;
     @Reference
     private CarService carService;
+    @Reference
+    private CoachService coachService;
     //去后台首页
-    @RequestMapping("go")
+    /*@RequestMapping("go")
     public String houtai(){
-        return "index1";
-    }
+        return "login";
+    }*/
 
    //查询所有教练信息
     @RequestMapping("queryAllcoach")
@@ -37,7 +40,7 @@ public class SchoolController {
             pageNo=1;
         }
         if(pageSize==null){
-            pageSize=1;
+            pageSize=5;
         }
       PageUtil<Coach> pageUtil=schoolService.queryAll(pageNo,pageSize);
         model.addAttribute("pageUtil",pageUtil);
@@ -60,7 +63,25 @@ public class SchoolController {
        }
        return "error";
     }
-    //查询所有学员
+    //辞退教练
+    @ResponseBody
+    @RequestMapping("updateStatu")
+    public String updateStatu(Integer coachId){
+        Integer count=coachService.updateCoach(coachId);
+        if(count>0){
+            return "ok";
+        }
+        return "error";
+    }
+    @ResponseBody
+    @RequestMapping("updateStatu2")
+    public String updateStatu2(Integer coachId){
+        Integer count=coachService.updateCoach2(coachId);
+        if(count>0){
+            return "ok";
+        }
+        return "error";
+    }
 
 
 

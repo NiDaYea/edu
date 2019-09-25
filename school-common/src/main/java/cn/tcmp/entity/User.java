@@ -22,6 +22,16 @@ public class User implements Serializable {
   private Integer uservaluecarId;
   private String userSuDate;
   private Integer uservalueId;
+  private Integer userroles;
+
+  public Integer getUserroles() {
+    return userroles;
+  }
+
+  public void setUserroles(Integer userroles) {
+    this.userroles = userroles;
+  }
+
   //用户状态
   private Integer userType;
   private Integer userJingDu;

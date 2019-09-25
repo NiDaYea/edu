@@ -20,13 +20,20 @@
     <resultMap id="fMap" type="Fees" autoMapping="true">
         <id column="feesid" property="feesid"/>
     </resultMap>
-        <select id="queryAll" parameterType="User" resultMap="uMap">
-            SELECT u.*,f.feesid,f.classType, t2.typeCode,t2.typeName,t2.valueId,t2.valueName AS `type2.valueName`
-            FROM USER u,TYPE t2,fees f
-            WHERE u.uservalueId=f.feesid
-            AND u.uservaluecarId=t2.valueId AND t2.typeCode='8'
-            <!--  <if test="userName!=null || userName!=''">
-                  and u.userName like concat ('%',#{userName},'%')
-              </if>-->
-        </select>
+    <select id="queryAll" parameterType="User" resultMap="uMap">
+        SELECT u.*,f.feesid,f.classType, t2.typeCode,t2.typeName,t2.valueId,t2.valueName AS `type2.valueName`
+        FROM USER u,TYPE t2,fees f
+        WHERE u.uservalueId=f.feesid
+        AND u.uservaluecarId=t2.valueId AND t2.typeCode='8'
+        AND u.userroles!=0
+        <!--  <if test="userName!=null || userName!=''">
+              and u.userName like concat ('%',#{userName},'%')
+          </if>-->
+    </select>
+    <select id="loginUser" resultType="User">
+     SELECT * FROM USER WHERE userName=#{userName} and userPassword=#{userPassword} and userroles=0
+    </select>
+    <update id="updateUserType" parameterType="integer">
+        UPDATE USER SET userType=2 WHERE userId=#{userId}
+    </update>
 </mapper>

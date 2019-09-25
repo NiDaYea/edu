@@ -6,4 +6,10 @@
     <select id="queryCoach" resultType="Coach">
      SELECT * FROM coach
     </select>
+    <update id="updateCoach" parameterType="integer">
+ UPDATE coach SET coathStatevalueId=3 WHERE coachId=#{coachId}
+    </update>
+    <update id="updateCoach2" parameterType="integer">
+ UPDATE coach SET coathStatevalueId=1 WHERE coachId=#{coachId}
+    </update>
 </mapper>
