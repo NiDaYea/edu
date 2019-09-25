@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSON;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Provider;
 import java.util.List;
@@ -57,5 +58,25 @@ public class TopicController {
         System.out.println(a);
         model.addAttribute("topic", a);
         return "cuoti";
+    }
+
+    //添加错题
+    @ResponseBody
+    @RequestMapping("addCuoTi")
+    public String addCuoTi(Wrong wrong){
+        if(wrongService.saveWrong(wrong)>0){
+            return "ok";
+        }
+        return "error";
+    }
+
+    //删除错题
+    @ResponseBody
+    @RequestMapping("delCuoTi")
+    public String delCuoTi(Wrong wrong){
+        if(wrongService.delWrong(wrong)>0){
+            return "ok";
+        }
+        return "error";
     }
 }

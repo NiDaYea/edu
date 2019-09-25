@@ -93,19 +93,19 @@
                     }
                     switch (index1){
                         case 0 :
-                            $("#ryi").append('<input type="radio" name="radio" onclick="dati('+result1.answerCode+','+index+')"/>');
+                            $("#ryi").append('<input type="radio" name="radio" onclick="datia('+result1.answerCode+','+index+','+result1.topicId+')"/>');
                             $("#ryi").append("A："+result1.answerVal);
                             break;
                         case 1 :
-                            $("#rer").append('<input type="radio" name="radio" onclick="dati('+result1.answerCode+','+index+')"/>');
+                            $("#rer").append('<input type="radio" name="radio" onclick="datia('+result1.answerCode+','+index+','+result1.topicId+')"/>');
                             $("#rer").append("B："+result1.answerVal);
                             break;
                         case 2 :
-                            $("#rsan").append('<input type="radio" name="radio" onclick="dati('+result1.answerCode+','+index+')"/>');
+                            $("#rsan").append('<input type="radio" name="radio" onclick="datia('+result1.answerCode+','+index+','+result1.topicId+')"/>');
                             $("#rsan").append("C："+result1.answerVal);
                             break;
                         case 3 :
-                            $("#rsi").append('<input type="radio" name="radio" onclick="dati('+result1.answerCode+','+index+')"/>');
+                            $("#rsi").append('<input type="radio" name="radio" onclick="datia('+result1.answerCode+','+index+','+result1.topicId+')"/>');
                             $("#rsi").append("D："+result1.answerVal);
                             break;
                     }
@@ -114,6 +114,48 @@
         })
     })
 
+    /*点击单选按钮事件*/
+    function datia(answerCode,x,topicId){
+        var an1="1";
+        switch (an){
+            case 0:
+                an1="A";
+                break;
+            case 1:
+                an1="B";
+                break;
+            case 2:
+                an1="C";
+                break;
+            case 3:
+                an1="D";
+                break;
+        }
+        if(answerCode==1){
+            $("#yes").attr("type","button");
+            $("#yes").css("width","150px");
+            $("#"+x).css({"background-color":"blue"});
+            $("#"+x).attr("name",an1);
+            $("input[type='radio']").remove();
+            num+=1;
+            dui+=1;
+            var lv=dui/num*100;
+            $("#dui").html(dui);
+            $("#lv").html(lv.toFixed(2));
+        }else {
+            alert(topicId);
+            $("#no").attr({"type":"button","value":"您答错了！正确答案是："+an1});
+            $("#"+x).css({"background-color":"red"});
+            $("#"+x).attr("name",an1);
+            $("input[type='radio']").remove();
+            num+=1;
+            cuo+=1;
+            var lv=dui/num*100;
+            $("#cuo").html(cuo);
+            $("#lv").html(lv.toFixed(2));
+        }
+
+    }
 </script>
 </body>
 </html>
