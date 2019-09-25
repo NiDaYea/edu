@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tcmp.dao.TypeMapper">
+    <select id="queryStatu" parameterType="Type" resultType="Type">
+    SELECT * FROM TYPE
+    WHERE typeCode='4'
+    </select>
+    <select id="querytypeCar" parameterType="Type" resultType="Type">
+    SELECT * FROM TYPE
+    WHERE typeCode='3'
+    </select>
+</mapper>

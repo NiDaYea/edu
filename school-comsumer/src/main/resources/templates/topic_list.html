@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>题目管理</title>
+    <script src="/js/jquery-2.1.4.min.js"></script>
+    <link rel="stylesheet" href="/js/css/bootstrap.css">
+    <script src="/js/js/bootstrap.js"></script>
+    <script src="/js/page.js"></script>
+</head>
+<body>
+<div role="tabpanel" class="tab-pane active" id="sour">
+
+    <div class="data-div">
+        <table class="table" border="1" cellspacing="1">
+            <tr>
+                <td>题目Id</td>
+                <td>题目名称</td>
+                <td>题目图片</td>
+            </tr>
+            <tr th:each="list:${pageUtil.list}" th:object="${list}">
+                <td th:text="*{topicId}">a</td>
+                <td>
+                    <a th:href="@{/topic/queryAnswerById(topicId=*{topicId})}" th:text="*{topicName}"></a>
+
+
+                </td>
+                <td th:text="*{topicImg}">a</td>
+            </tr>
+        </table>
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li>
+                    <a href="#" aria-label="Previous"
+                       th:no="${pageUtil.pageNo>1}?${pageUtil.pageNo-1}:1"
+                    >
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li th:each="no:${pageUtil.navigatepageNums}"
+                    th:class="${pageUtil.pageNo eq no}?'active':''"
+                >
+                    <a th:text="${no}" th:no="${no}" href="#"></a></li>
+                <li>
+                    <a href="#"
+                       th:no="${pageUtil.pageNo>=pageUtil.totalPageCount}?${pageUtil.totalPageCount}:${pageUtil.pageNo+1}"
+                       aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+
+</body>
+</html>

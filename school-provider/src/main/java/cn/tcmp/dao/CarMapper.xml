@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tcmp.dao.CarMapper">
+    <resultMap id="cMap" type="Car" autoMapping="true">
+        <id column="carId" property="carId"/>
+        <association property="coach" resultMap="coachMap"/>
+        <association property="type1" resultMap="tMap1"/>
+        <association property="type2" resultMap="tMap2"/>
+    </resultMap>
+    <resultMap id="tMap1" type="Type" autoMapping="true">
+        <id column="typeId" property="typeId"/>
+        <result column="type1.valueName" property="valueName"/>
+    </resultMap>
+    <resultMap id="tMap2" type="Type" autoMapping="true">
+        <id column="typeId" property="typeId"/>
+        <result column="type2.valueName" property="valueName"/>
+    </resultMap>
+    <resultMap id="coachMap" type="Coach" autoMapping="true">
+        <id property="coachId" column="coachId"/>
+    </resultMap>
+    <select id="queryAllCar" resultMap="cMap">
+     SELECT c.*,h.*,type1.typeCode,type1.typeName,type1.valueId,type1.valueName AS `type1.valueName`,type2.typeCode,type2.typeName,type2.valueId,type2.valueName AS `type2.valueName`FROM
+car c,coach h,TYPE type1,TYPE type2
+WHERE c.coachId=h.coachId
+AND type1.typeCode='3'
+AND c.carTypevalueId=type1.valueId
+AND type2.typeCode='4'
+AND c.carvalueId=type2.valueId
+    </select>
+    <insert id="addCar" parameterType="Car">
+   INSERT INTO car(carId,carNum,carTypevalueId,carPrice,carDate,caroutDate,coachId,carvalueId) VALUES(NULL,#{carNum},#{carTypevalueId},#{carPrice},now(),#{caroutDate},#{coachId},#{carvalueId})
+    </insert>
+    <select id="queryCar" parameterType="Car" resultType="Car">
+SELECT carId,carNum FROM car WHERE carvalueId=1
+    </select>
+    <update id="updateCar" parameterType="Car">
+        UPDATE car SET carNum=#{carNum},carTypevalueId=#{carTypevalueId},carPrice=#{carPrice},carDate=#{carDate},caroutDate=#{caroutDate},coachId=#{coachId},carvalueId=#{carvalueId} where carId=#{carId}
+    </update>
+    <select id="queryoneCar" resultMap="cMap">
+  SELECT c.*,h.coathName,h.coachId,type1.typeCode,type1.typeName,type1.valueId,type1.valueName AS `type1.valueName`,type2.typeCode,type2.typeName,type2.valueId,type2.valueName AS `type2.valueName`FROM
+car c,coach h,TYPE type1,TYPE type2
+WHERE c.coachId=h.coachId
+AND type1.typeCode='3'
+AND c.carTypevalueId=type1.valueId
+AND type2.typeCode='4'
+AND c.carvalueId=type2.valueId
+and c.carId=#{carId}
+    </select>
+
+
+
+
+</mapper>

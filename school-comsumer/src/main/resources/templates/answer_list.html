@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>答案</title>
+</head>
+<body>
+     <table border="1">
+         <tr>
+             <td>正确答案</td>
+         </tr>
+         <tr>
+             <td style="color:greenyellow" th:text="${answer.answerVal}"></td>
+         </tr>
+
+
+         <tr>
+             <td>错误答案</td>
+         </tr>
+         <tr th:each="l:${list}" th:object="${l}">
+             <td   style="color: red" th:text="*{answerVal}"></td>
+         </tr>
+
+
+     </table>
+     <input type="button"  onclick="history.go(-1)" value="返回">
+
+
+</body>
+</html>

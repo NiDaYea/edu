@@ -14,8 +14,10 @@ public class About implements Serializable {
 
   private Integer aboutId;
   private String aboutDate;
-  private String aboutTime;
   private Integer coachId;
   private Integer userId;
+  private String eight;
+  private String twelve;
+  private String fifteen;
 
 }

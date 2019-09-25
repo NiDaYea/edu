@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tcmp.dao.SchoolMapper">
+    <resultMap id="sMap" type="Coach" autoMapping="true">
+        <id column="coachId" property="coachId"/>
+        <association property="car" resultMap="cMap"/>
+        <association property="type" resultMap="tMap"/>
+        <association property="type2" resultMap="tMap2"/>
+    </resultMap>
+    <resultMap id="cMap" type="Car" autoMapping="true">
+        <id property="carId" column="carId"/>
+    </resultMap>
+    <resultMap id="tMap" type="Type" autoMapping="true">
+        <id property="typeId" column="type.typeId"/>
+        <result column="type.valueName" property="valueName"/>
+    </resultMap>
+    <resultMap id="tMap2" type="Type" autoMapping="true">
+        <id property="typeId" column="type2.typeId"/>
+        <result column="type2.valueName" property="valueName"/>
+    </resultMap>
+    <select id="queryAll" parameterType="Coach" resultMap="sMap">
+
+SELECT c.*,type.typeCode,type.typeName,type.valueId,type.valueName AS `type.valueName`,type2.valueId,type2.typeCode,type2.typeName,type2.valueName AS `type2.valueName`,r.carId,r.carNum
+FROM coach c,TYPE AS TYPE,TYPE AS type2,car r
+WHERE  c.coathGradevalueId=type.valueId
+ AND type.typeCode='6'
+ AND c.coathStatevalueId=type2.valueId
+ AND type2.typeCode='5'
+ AND  c.carId=r.carId
+    </select>
+    <insert id="addCoach" parameterType="Coach">
+     insert into Coach(coachId,coathName,coathSex,coachtel,coathAge,coathNum,coathStatevalueId,coathDate,coathGradevalueId,carId) values(null,#{coathName},#{coathSex},#{coachtel},#{coathAge},#{coathNum},#{coathStatevalueId},NOW(),#{coathGradevalueId},#{carId})
+    </insert>
+</mapper>

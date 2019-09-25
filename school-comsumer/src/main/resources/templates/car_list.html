@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>汽车管理</title>
+    <script src="/js/jquery-2.1.4.min.js"></script>
+    <link rel="stylesheet" href="/js/css/bootstrap.css">
+    <script src="/js/js/bootstrap.js"></script>
+        <script src="/js/page.js"></script>
+        <script type="text/javascript">
+        $(function () {
+            $("#addCar").click(function () {
+                $("#addCarModel").modal("show");
+            })
+            $("#addButton").click(function () {
+                alert("aa");
+                var data=$("#addCarForm").serialize();
+                $.post("/car/addCar",data,function (result) {
+                    if(result=='ok'){
+                        location.href="/car/queryAllCar";
+                    }else{
+                        alert("添加错误");
+                    }
+                })
+            })
+            $.get("/car/queryStatus","typeCode=4",function (result) {
+                $("#statu").append("<option value='-1'>请选择</option>");
+                $.each(result,function (index,i) {
+                    $("#statu").append("<option value='"+i.valueId+"'>"+i.valueName+"</option>")
+                })
+            })
+           $.get("/car/queryCoach",function (result) {
+               $("#coach").append("<option value='-1'>请选择</option>")
+               $.each(result,function (index,i) {
+                   $("#coach").append("<option value='"+i.coachId+"'>"+i.coathName+"</option>")
+               })
+           })
+            $.get("/car/querytypeCar","typeCode=3",function (result) {
+                $("#carTypevalueId").append("<option value='=1'>请选择</option>");
+                $.each(result,function (index,i) {
+                    $("#carTypevalueId").append("<option value='"+i.valueId+"'>"+i.valueName+"</option>")
+                })
+            })
+
+        })
+    </script>
+</head>
+<body>
+
+<div role="tabpanel" class="tab-pane active" id="sour">
+    <div class="check-div">
+        <button id="addCar" class="btn btn-yellow btn-xs" data-toggle="modal" >新增车辆</button>
+    </div>
+    <div class="data-div">
+        <table class="table" border="1" cellspacing="1">
+            <tr>
+                <td>汽车号码</td>
+                <td>汽车牌照</td>
+                <td>汽车型号</td>
+                <td>汽车价钱</td>
+                <td>汽车购入日期</td>
+                <td>汽车报废日期</td>
+                <td>归属教练</td>
+                <td>汽车状态</td>
+                <td>操作</td>
+            </tr>
+            <tr th:each="list:${pageUtil.list}" th:object="${list}">
+                <td th:text="*{carId}"></td>
+                <td  style="color:#2aabd2" th:text="*{carNum}"></td>
+                <td th:text="*{type1.valueName}"></td>
+                <td th:text="*{carPrice}">a</td>
+                <td th:text="*{carDate}">a</td>
+                <td th:text="*{caroutDate}">a</td>
+                <td th:text="*{coach.coathName}">a</td>
+                <td th:text="*{type2.valueName}">a</td>
+                <td>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            操作<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/car/toUpdateCar(carId=*{carId})}" target="main">修改车辆信息</a></li>
+                        </ul>
+                    </div>
+                </td>
+
+            </tr>
+        </table>
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li>
+                    <a href="#" aria-label="Previous"
+                       th:no="${pageUtil.pageNo>1}?${pageUtil.pageNo-1}:1"
+                    >
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li th:each="no:${pageUtil.navigatepageNums}"
+                    th:class="${pageUtil.pageNo eq no}?'active':''"
+                >
+                    <a th:text="${no}" th:no="${no}" href="#"></a></li>
+                <li>
+                    <a href="#"
+                       th:no="${pageUtil.pageNo>=pageUtil.totalPageCount}?${pageUtil.totalPageCount}:${pageUtil.pageNo+1}"
+                       aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!--新增车辆模态框-->
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="addCarModel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">车辆基本信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" method="post" enctype="multipart/form-data" id="addCarForm">
+                            <table>
+                                <tr>
+                                    <td>汽车牌照</td>
+                                    <td>
+                                        <input type="text"  name="carNum">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>汽车型号</td>
+                                    <td>
+                                        <select name="carTypevalueId" id="carTypevalueId">
+
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>汽车价钱</td>
+                                    <td>
+                                        <input type="text" name="carPrice">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>汽车报废日期</td>
+                                    <td>
+                                        <input type="text" name="caroutDate">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>归属教练</td>
+                                    <td>
+                                      <select name="coachId" id="coach">
+
+                                        </select>
+                                       <!-- <input type="text" name="coachId">-->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>汽车状态</td>
+                                    <td>
+                                        <select name="carvalueId" id="statu">
+
+                                        </select>
+                                    </td>
+                                </tr>
+
+
+
+
+                            </table>
+                            <button type="button" class="btn btn-default" id="addButton">添加</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+    </div>
+</div>
+</body>
+
+
+
+
+</body>
+</html>

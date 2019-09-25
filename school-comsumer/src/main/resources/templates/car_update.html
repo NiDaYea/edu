@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>修改车辆信息</title>
+    <script src="/js/jquery-2.1.4.min.js"></script>
+    <link rel="stylesheet" href="/js/css/bootstrap.css">
+    <script src="/js/js/bootstrap.js"></script>
+    <script src="/js/page.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var carTypevalueId=$("#carTypevalueId2").val();
+        $.get("/car/queryCarType","typeCode=3",function (result) {
+            $.each(result,function (index,i) {
+                $("#carTypevalueId").append("<option value='"+i.valueId+"'>"+i.valueName+"</option>")
+            })
+            $("#carTypevalueId option[value='"+carTypevalueId+"']").attr("selected","select");
+        })
+
+            var carvalueId=$("#carvalueId2").val();
+            $.get("/car/queryCarStatu","typeCode=4",function (result) {
+                $.each(result,function (index,i) {
+                    $("#carvalueId").append("<option value='"+i.valueId+"'>"+i.valueName+"</option>")
+                })
+                $("#carvalueId option[value='"+carvalueId+"']").attr("selected","select");
+            })
+            var coachId=$("#coachId2").val();
+            $.get("/car/queryCoach",function (result) {
+                $.each(result,function (index,i) {
+                    $("#coachId").append("<option value='"+i.coachId+"'>"+i.coathName+"</option>")
+
+                })
+                $("#coachId option[value='"+coachId+"']").attr("selected","select");
+            })
+            $("#updatebutton").click(function () {
+                var data=$("#updatefrom").serialize();
+                $.post("/car/doUpdateCar",data,function (result) {
+                    if(result=='ok'){
+                        location.href="/car/queryAllCar";
+                    }else{
+                        alert("修改失败");
+                    }
+                })
+            })
+
+
+
+
+
+        })
+    </script>
+</head>
+<body>
+<form action="" id="updatefrom">
+    <table class="table table-bordered" border="1" cellspacing="2">
+   <div>
+       汽车号码:<input readonly="readonly" type="text" name="carId" th:value="${car.carId}"><br/>
+       汽车牌照:<input type="text" name="carNum" th:value="${car.carNum}"><br/>
+       汽车型号: <select name="carTypevalueId" id="carTypevalueId"><br/>
+       <input type="hidden" id="carTypevalueId2" th:value="${car.carTypevalueId}">
+   </select><br/>
+       汽车价钱:<input type="text" name="carPrice" th:value="${car.carPrice}"><br/>
+       汽车购入日期: <input type="text" name="carDate" th:value="${car.carDate}"><br/>
+       汽车报废日期:<input type="text" name="caroutDate" th:value="${car.caroutDate}" ><br/>
+       归属教练: <select name="coachId" id="coachId">
+       <input type="hidden" id="coachId2" th:value="${car.coachId}">
+   </select><br/>
+       汽车状态: <select name="carvalueId" id="carvalueId">
+       <input type="hidden" id="carvalueId2" th:value="${car.carvalueId}">
+   </select><br/>
+       <input type="button" value="修改" id="updatebutton">
+   </div>
+    </table>
+    <input type="button"  onclick="history.go(-1)" value="返回">
+</form>
+
+
+</body>
+</html>
