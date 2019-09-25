@@ -26,4 +26,6 @@ public class User implements Serializable {
   private Integer uservalueId;
   //用户状态
   private Integer userType;
+  //角色
+  private Integer userroles;
 }

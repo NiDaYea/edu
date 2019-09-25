@@ -17,7 +17,8 @@
   `uservaluecarId`,
   `userSuDate`,
   `uservalueId`,
-  `userType`
+  `userType`,
+  `userroles`
 )
 VALUES
   (
@@ -33,7 +34,7 @@ VALUES
     #{uservaluecarId},
     NOW(),
     #{uservalueId},
-    1
+    1,1
   );
     </insert>
 
