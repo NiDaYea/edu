@@ -5,6 +5,8 @@
     <file url="file://$PROJECT_DIR$/../edu-provider" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../school-comsumer" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../school-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../user-consumer" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../user-provier" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
