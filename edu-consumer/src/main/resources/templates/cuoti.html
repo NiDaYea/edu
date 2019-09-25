@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>顺序练习</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+<center>
+    <table width="80%">
+        <tr>
+            <td width="80%">
+                <p><span id="timu" style="font-size: 25px; font-weight: bolder"></span></p>
+            </td>
+            <td rowspan="8" width="20%">
+                <p id="img"></p>
+            </td>
+        </tr>
+        <tr>
+            <td style="font-size: 20px; font-weight: inherit">
+                <p id="ryi">&nbsp;&nbsp;&nbsp;</p>
+            </td>
+        </tr>
+        <tr>
+            <td style="font-size: 20px; font-weight: inherit">
+                <p id="rer">&nbsp;&nbsp;&nbsp;</p>
+            </td>
+        </tr>
+        <tr>
+            <td style="font-size: 20px; font-weight: inherit">
+                <p id="rsan">&nbsp;&nbsp;&nbsp;</p>
+            </td>
+        </tr>
+        <tr>
+            <td style="font-size: 20px; font-weight: inherit">
+                <p id="rsi">&nbsp;&nbsp;&nbsp;</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p><span id="answer">
+                            &nbsp;&nbsp;
+                            <input type="hidden" class="hiddena" value="恭喜你，答对了！" id="yes" style="background-color:#67b168;width: 150px;height: 50px; font-weight: normal;font-size: 17px;color: green;">
+                            <input type="hidden" class="hiddena" value="您答错了！正确答案是：" id="no" style="background-color:pink;width: 250px;height: 50px; font-weight: normal;font-size: 17px;color: red;">
+                        </span>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    <input type="button" onclick="shang()" value="上一题" style="background-color:green;width: 150px;height: 50px; font-weight: normal;font-size: 17px; color: white;border: none;border-radius: 5px">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="button" onclick="xia()" value="下一题" style="background-color:green;width: 150px;height: 50px; font-weight: normal;font-size: 17px; color: white;border: none;border-radius: 5px">
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p style="font-size: 20px">答对：<span id="dui">0</span>题&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;答错：<span id="cuo">0</span>题&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;正确率：<span id="lv">0.00</span>%</p>
+            </td>
+        </tr>
+    </table>
+</center>
+
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery-3.4.1.min.js"></script>
+<!--<script src="/js/KaoShi.js"></script>-->
+<script type="text/javascript" th:inline="javascript">
+    //记录答题总数量
+    var num=0;
+    var cuo=0;
+    var dui=0;
+    var an=10;
+    var dex=0;
+    var cuoti = [[${topic}]];
+    //总题量
+    var zong = cuoti.length;
+    /*alert(topic);
+    var topics = JSON.parse(topic);*/
+    $(function(){
+        $.each(cuoti,function (index10,topic) {
+            if(index10==dex){
+                $.each(topic.listTopic,function(index,result) {
+                    /*if(index==dex){*/
+                        var titou=dex+1;
+                        $("#timu").html(titou+"."+result.topicName);
+                        if(result.topicImg!=null){
+                            $("#img").html('<img src="'+result.topicImg+'" width="300px" height="150px"/>')
+                        }
+                        var luanxu=(result.listanswer).sort(function () {
+                            return Math.random() > 0.5 ? -1:1;
+                        })
+                        $.each(luanxu,function(index1,result1){
+                            if(result1.answerCode==1){
+                                an=index1;
+                            }
+                            switch (index1){
+                                case 0 :
+                                    $("#ryi").append('<input type="radio" name="radio" onclick="dati('+result1.answerCode+','+index+')"/>');
+                                    $("#ryi").append("A："+result1.answerVal);
+                                    break;
+                                case 1 :
+                                    $("#rer").append('<input type="radio" name="radio" onclick="dati('+result1.answerCode+','+index+')"/>');
+                                    $("#rer").append("B："+result1.answerVal);
+                                    break;
+                                case 2 :
+                                    $("#rsan").append('<input type="radio" name="radio" onclick="dati('+result1.answerCode+','+index+')"/>');
+                                    $("#rsan").append("C："+result1.answerVal);
+                                    break;
+                                case 3 :
+                                    $("#rsi").append('<input type="radio" name="radio" onclick="dati('+result1.answerCode+','+index+')"/>');
+                                    $("#rsi").append("D："+result1.answerVal);
+                                    break;
+                            }
+                        })
+                    /*}*/
+                })
+            }
+        })
+   })
+
+    /*点击单选按钮事件*/
+    function dati(answerCode,x){
+        var an1="1";
+        switch (an){
+            case 0:
+                an1="A";
+                break;
+            case 1:
+                an1="B";
+                break;
+            case 2:
+                an1="C";
+                break;
+            case 3:
+                an1="D";
+                break;
+        }
+        if(answerCode==1){
+            $("#yes").attr("type","button");
+            $("#yes").css("width","150px");
+            $("#"+x).css({"background-color":"blue"});
+            $("#"+x).attr("name",an1);
+            $("input[type='radio']").remove();
+            num+=1;
+            dui+=1;
+            var lv=dui/num*100;
+            $("#dui").html(dui);
+            $("#lv").html(lv.toFixed(2));
+        }else {
+            $("#no").attr({"type":"button","value":"您答错了！正确答案是："+an1});
+            $("#"+x).css({"background-color":"red"});
+            $("#"+x).attr("name",an1);
+            $("input[type='radio']").remove();
+            num+=1;
+            cuo+=1;
+            var lv=dui/num*100;
+            $("#cuo").html(cuo);
+            $("#lv").html(lv.toFixed(2));
+        }
+
+    }
+    /*点击下一道事件*/
+    function  xia() {
+        dex+=1;
+        if(dex>=zong){
+            dex=zong-1;
+            return;
+        }
+        $("#img").html("");
+        $("#ryi").html("");
+        $("#rer").html("");
+        $("#rsan").html("");
+        $("#rsi").html("");
+        $(".hiddena").attr("type","hidden");
+        $.each(cuoti,function (index10,topic) {
+            if (index10 == dex) {
+                $.each(topic.listTopic,function(index,result) {
+                        if(result.topicImg!=null){
+                            $("#img").html('<img src="'+result.topicImg+'" width="300px" height="150px"/>')
+                        }
+                        var titou=index+1;
+                        $("#timu").html(titou+"."+result.topicName);
+                        var luanxu=(result.listanswer).sort(function () {
+                            return Math.random() > 0.5 ? -1:1;
+                        })
+                        $.each(luanxu,function(index1,result1){
+                            if(result1.answerCode==1){
+                                an=index1;
+                            }
+                            switch (index1){
+                                case 0 :
+                                        $("#ryi").append('<input type="radio" name="radio" onclick="dati('+result1.answerCode+','+index+')"/>');
+                                        $("#ryi").append("A："+result1.answerVal);
+                                    break;
+                                case 1 :
+                                        $("#rer").append('<input type="radio" name="radio" onclick="dati('+result1.answerCode+','+index+')"/>');
+                                        $("#rer").append("B："+result1.answerVal);
+                                    break;
+                                case 2 :
+                                        $("#rsan").append('<input type="radio" name="radio" onclick="dati('+result1.answerCode+','+index+')"/>');
+                                        $("#rsan").append("C："+result1.answerVal);
+                                    break;
+                                case 3 :
+                                        $("#rsi").append('<input type="radio" name="radio" onclick="dati('+result1.answerCode+','+index+')"/>');
+                                        $("#rsi").append("D："+result1.answerVal);
+                                    break;
+                            }
+                        })
+                })
+            }
+        })
+    }
+    /*点击上一道事件*/
+    function  shang() {
+        dex-=1;
+        if(dex<0){
+            dex=0;
+            return;
+        }
+        $("#img").html("");
+        $("#ryi").html("");
+        $("#rer").html("");
+        $("#rsan").html("");
+        $("#rsi").html("");
+        $(".hiddena").attr("type","hidden");
+        $.each(cuoti,function (index10,topic) {
+            if (index10 == dex) {
+                $.each(topic.listTopic,function(index,result) {
+                        if(result.topicImg!=null){
+                            $("#img").html('<img src="'+result.topicImg+'" width="300px" height="150px"/>')
+                        }
+                        var titou=index+1;
+                        $("#timu").html(titou+"."+result.topicName);
+                        var luanxu=(result.listanswer).sort(function () {
+                            return Math.random() > 0.5 ? -1:1;
+                        })
+                        $.each(luanxu,function(index1,result1){
+                            if(result1.answerCode==1){
+                                an=index1;
+                            }
+                            switch (index1){
+                                case 0 :
+                                        $("#ryi").append('<input type="radio" name="radio" onclick="dati('+result1.answerCode+','+index+')"/>');
+                                        $("#ryi").append("A："+result1.answerVal);
+                                    break;
+                                case 1 :
+                                        $("#rer").append('<input type="radio" name="radio" onclick="dati('+result1.answerCode+','+index+')"/>');
+                                        $("#rer").append("B："+result1.answerVal);
+                                    break;
+                                case 2 :
+                                        $("#rsan").append('<input type="radio" name="radio" onclick="dati('+result1.answerCode+','+index+')"/>');
+                                        $("#rsan").append("C："+result1.answerVal);
+                                    break;
+                                case 3 :
+                                        $("#rsi").append('<input type="radio" name="radio" onclick="dati('+result1.answerCode+','+index+')"/>');
+                                        $("#rsi").append("D："+result1.answerVal);
+                                    break;
+                            }
+                        })
+                })
+            }
+        })
+    }
+</script>
+</body>
+</html>

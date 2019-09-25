@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tcmp.first.dao.TypeMapper">
+    <select id="queryDriving" resultType="cn.tcmp.first.entity.Type">
+        SELECT valueId,valueName FROM TYPE WHERE typeCode=8
+    </select>
+
+    <select id="queryEnroll" resultType="cn.tcmp.first.entity.Type">
+        SELECT valueId,valueName FROM TYPE WHERE typeCode=7
+    </select>
+</mapper>

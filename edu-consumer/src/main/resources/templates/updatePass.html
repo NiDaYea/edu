@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>修改信息</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#updateUser").click(function () {
+                var userTel=$("input[name=userTel]").val();
+                var userAddress=$("input[name=userAddress]").val();
+                var userPassword=$("input[name=userPassword]").val();
+                var againPassword=$("input[name=againPassword]").val();
+                if (userPassword == null || userPassword == '') {
+                    $("#point").modal("show");
+                    $("#prompt").html("密码不能为空!");
+                    return;
+                }
+                if (userPassword !=againPassword) {
+                    $("#point").modal("show");
+                    $("#prompt").html("确认密码与密码不一致,请重新输入!");
+                    return;
+                }
+                if (userTel == null || userTel == '') {
+                    $("#point").modal("show");
+                    $("#prompt").html("联系电话不能为空");
+                    return;
+                }
+                var tel=/^1(3[0-9]|5[012356789]|7[678]|8[0-9]|4[57])[0-9]{8}$/;
+                if(!tel.test(userTel)){
+                    $("#point").modal("show");
+                    $("#prompt").html("联系电话输入错误");
+                    return;
+                }
+                if (userAddress == null || userAddress == '') {
+                    $("#point").modal("show");
+                    $("#prompt").html("家庭住址不能为空");
+                    return;
+                }
+                var data=$("#updateForm").serialize();
+                $.post("/doupdatePassword",data,function (result) {
+                    if (result == 'ok') {
+                        $("#point").modal("show");
+                        $("#prompt").html("修改成功!");
+                    } else {
+                        $("#point").modal("show");
+                        $("#prompt").html("修改失败!");
+                    }
+                })
+            })
+        })
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <center><h2>新东方驾校</h2></center>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <form id="updateForm">
+                <center> &nbsp;&nbsp; &nbsp;&nbsp; 电话 :
+                    <input type="hidden" name="userId" th:value="${user.userId}">
+                    <input type="text" name="userTel" th:value="${user.userTel}"><br>
+                    <span style="color: red">账号登陆唯一标识,请牢记</span>
+                    <hr>
+                    &nbsp;&nbsp; &nbsp;&nbsp; 住址 :
+                    <input type="text" name="userAddress" th:value="${user.userAddress}"><br>
+                    <span style="color: red">这是班车接送地址,请填写现住址</span>
+                    <hr>
+                    &nbsp;&nbsp; &nbsp;&nbsp; 密码 :
+                    <input type="password" name="userPassword">
+                    <span style="color: red"></span>
+                    <hr>
+                    确认密码 :
+                    <input type="password" name="againPassword"><br>
+                    <span style="color: red">请再次输入密码,确保密码正确</span>
+                    <hr>&nbsp;&nbsp;
+                    <input type="button" id="updateUser" value="提交">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="reset" value="重置">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="button" value="返回">
+                </center>
+            </form>
+        </div>
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="point">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">信息提示</h4>
+                    </div>
+                    <div class="modal-body" id="prompt">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+</body>
+</html>

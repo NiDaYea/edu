@@ -5,22 +5,26 @@
 <mapper namespace="cn.tcmp.first.dao.TopicMapper">
 
     <resultMap id="TopicMap" type="Topic" autoMapping="true">
-        <id column="topicId" property="topicId" />
+        <id column="topicId" property="topicId"/>
         <association property="listanswer" resultMap="answerMap"/>
     </resultMap>
 
     <resultMap id="answerMap" type="Answer" autoMapping="true">
-        <id column="anwerId" property="anwerId"/>
+        <id column="answerId" property="answerId"/>
     </resultMap>
 
-    <!--查询所有题目和对应的答案-->
-    <select id="queryAllTopic" parameterType="Integer" resultType="TopicMap">
-        SELECT * FROM topic,answer WHERE topic.`topicId`=answer.`topicId` AND topic.`topicCode`=#{topicCode} ORDER BY RAND() LIMIT 100
+    <!--随机查询100道题-->
+    <select id="queryByYIbai" parameterType="Integer" resultType="Topic">
+        SELECT * FROM topic WHERE topicCode=#{topicCode} ORDER BY RAND() LIMIT 100
     </select>
 
-    <!--随机100道题和对应答案-->
-    <select id="queryByYIbai" parameterType="Integer" resultType="TopicMap">
-        SELECT * FROM topic,answer WHERE topic.`topicId`=answer.`topicId` AND topic.`topicCode`=#{topicCode} ORDER BY RAND() LIMIT 100
+    <!--根据题目id查答案-->
+    <select id="queryAnswer" parameterType="Integer" resultType="Answer">
+        SELECT * FROM answer WHERE topicId=#{topicId} ORDER BY RAND()
     </select>
 
+    <!--根据科几查询所有题和对应答案-->
+    <select id="queryAll" parameterType="Integer" resultMap="TopicMap">
+        SELECT * FROM topic,answer WHERE topic.`topicId`=answer.`topicId` AND topic.`topicCode`=#{topicCode}
+    </select>
 </mapper>

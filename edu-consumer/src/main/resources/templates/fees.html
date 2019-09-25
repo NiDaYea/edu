@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>班型及价格</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>班型</th>
+        <th>所配车型</th>
+        <th>驾照等级</th>
+        <th>价格(元)</th>
+        <th>班型介绍</th>
+    </tr>
+    <tr th:each="list:${Fees}" th:object="${list}">
+        <td th:text="*{classType}"></td>
+        <td th:text="*{carType}" ></td>
+        <td th:text="*{license}"></td>
+        <td th:text="*{price}"></td>
+        <td th:text="*{explain}"></td>
+    </tr>
+</table>
+</body>
+</html>

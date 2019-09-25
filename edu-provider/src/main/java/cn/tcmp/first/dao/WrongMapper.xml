@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tcmp.first.dao.WrongMapper">
+
+    <resultMap id="WrongMap" type="Wrong" autoMapping="true">
+        <id column="wrongId" property="wrongId"/>
+        <association property="listTopic" resultMap="TopicMap"/>
+    </resultMap>
+
+    <resultMap id="TopicMap" type="Topic" autoMapping="true">
+        <id column="topicId" property="topicId"/>
+        <association property="listanswer" resultMap="answerMap"/>
+    </resultMap>
+
+    <resultMap id="answerMap" type="Answer" autoMapping="true">
+        <id column="answerId" property="answerId"/>
+    </resultMap>
+    <!--根据用户id查询所有错题-->
+    <select id="queryAll" parameterType="Integer" resultMap="WrongMap">
+        #查所有题和答案
+        SELECT * FROM topic,answer,wrong
+        WHERE topic.`topicId`=answer.`topicId`
+        AND topic.`topicCode`=#{topicCode}
+        AND topic.`topicId`
+        AND wrong.`topicId`=topic.`topicId`
+        AND wrong.`userId`=#{userId}
+    </select>
+</mapper>
