@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tcmp.dao.SchoolMapper">
+    <resultMap id="sMap" type="Coach" autoMapping="true">
+        <id column="coachId" property="coachId"/>
+        <association property="car" resultMap="cMap"/>
+        <association property="type" resultMap="tMap"/>
+        <association property="type2" resultMap="tMap2"/>
+    </resultMap>
+    <resultMap id="cMap" type="Car" autoMapping="true">
+        <id property="carId" column="carId"/>
+        <association property="type3" resultMap="type3Map"></association>
+    </resultMap>
+    <resultMap id="tMap" type="Type" autoMapping="true">
+        <id property="typeId" column="type.typeId"/>
+        <result column="type.valueName" property="valueName"/>
+    </resultMap>
+    <resultMap id="tMap2" type="Type" autoMapping="true">
+        <id property="typeId" column="type2.typeId"/>
+        <result column="type2.valueName" property="valueName"/>
+    </resultMap>
+    <resultMap id="type3Map" type="Type" autoMapping="true">
+        <id property="typeId" column="type3id"/>
+        <result property="valueName" column="valueName3"></result>
+    </resultMap>
+    <select id="queryAll" resultMap="sMap">
+
+        SELECT c.*,type.typeCode,type.typeName,type.valueId,type.valueName AS `type.valueName`
+        ,type2.valueId,type2.typeCode,type2.typeName,type2.valueName AS `type2.valueName`,r.carId,r.carNum
+        ,type3.valueName as valueName3 ,type3.valueId  AS type3id
+        FROM coach c,TYPE AS TYPE,TYPE AS type2,car r,type as type3
+        WHERE c.coathGradevalueId=type.valueId
+        AND type.typeCode='6'
+        AND c.coathStatevalueId=type2.valueId
+        AND type2.typeCode='5'
+        AND c.carId=r.carId
+        and r.carTypevalueId=type3.valueid
+        and type3.typeCode='3'
+        <if test="coathName!=null and coathName!=''and coathName!='-1'">
+            AND c.`coathName` LIKE concat('%',#{coathName},'%')
+        </if>
+        <if test="carTypevalueId!=0 and carTypevalueId!=-1">
+            and r.carTypevalueId=#{carTypevalueId}
+        </if>
+
+
+    </select>
+    <insert id="addCoach" parameterType="Coach">
+     insert into Coach(coachId,coathName,coathSex,coachtel,coathAge,coathNum,coathStatevalueId,coathDate,coathGradevalueId,carId) values(null,#{coathName},#{coathSex},#{coachtel},#{coathAge},#{coathNum},#{coathStatevalueId},NOW(),#{coathGradevalueId},#{carId})
+    </insert>
+
+
+    <resultMap id="CoachMap" type="Coach" autoMapping="true">
+        <id property="coachId" column="coachId"></id>
+        <association property="car" resultMap="carMap"></association>
+    </resultMap>
+    <resultMap id="carMap" type="Car" autoMapping="true">
+        <id property="carId" column="carId"></id>
+    </resultMap>
+    <select id="queryById" parameterType="int" resultMap="CoachMap">
+        SELECT * FROM `coach` c,`car` r
+ WHERE c.`carId`=r.carId
+ AND c.`coachId`=#{coachId}
+    </select>
+    <select id="queryAllAbout"  resultType="About">
+SELECT * FROM `about`
+WHERE coachId=#{coachId}
+AND aboutDate=#{aboutDate}
+    </select>
+    <insert id="addAbout" parameterType="About" useGeneratedKeys="true" keyProperty="aboutId">
+        insert into About(aboutId,aboutDate,coachId,userId) values(null,#{aboutDate},#{coachId},#{userId})
+    </insert>
+
+    <update id="updateAbout" >
+        UPDATE About
+        <if test="str=='a'.toString()">
+        SET eight='yes'
+        </if>
+        <if test="str=='b'.toString()">
+            SET twelve='yes'
+        </if>
+        <if test="str=='c'.toString()">
+        SET fifteen='yes'
+    </if>
+WHERE aboutId=#{aboutId}
+    </update>
+
+    <select id="queryTop1" resultType="About">
+        SELECT * FROM About ORDER BY Aboutid DESC LIMIT 1
+    </select>
+
+    <select id="queryCountAbout" resultType="int">
+        SELECT COUNT(*) FROM About
+WHERE userid=#{userId}
+    </select>
+</mapper>

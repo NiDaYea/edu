@@ -1,39 +1,12 @@
 package cn.tcmp.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-
 
 public class User implements Serializable {
 
   private Integer userId;
   private String userName;
-  private Integer userAge;
-  private String userSex;
-  private String userNum;
-  private String userTel;
-  private String userDate;
-  private String userAddress;
-  private String userCountry;
-  private String userPassword;
-  private Integer uservaluecarId;
-  private String userSuDate;
-  private Integer uservalueId;
-  private Integer userroles;
-
-  public Integer getUserroles() {
-    return userroles;
-  }
-
-  public void setUserroles(Integer userroles) {
-    this.userroles = userroles;
-  }
-
-  //用户状态
-  private Integer userType;
   private Integer userJingDu;
 
   public Integer getUserJingDu() {
@@ -42,34 +15,6 @@ public class User implements Serializable {
 
   public void setUserJingDu(Integer userJingDu) {
     this.userJingDu = userJingDu;
-  }
-
-  private Type type;
-  private Type type2;
-  private Fees fees;
-
-  public Fees getFees() {
-    return fees;
-  }
-
-  public void setFees(Fees fees) {
-    this.fees = fees;
-  }
-
-  public Type getType2() {
-    return type2;
-  }
-
-  public void setType2(Type type2) {
-    this.type2 = type2;
-  }
-
-  public Type getType() {
-    return type;
-  }
-
-  public void setType(Type type) {
-    this.type = type;
   }
 
   public Integer getUserId() {
@@ -176,33 +121,24 @@ public class User implements Serializable {
     this.uservalueId = uservalueId;
   }
 
-  public Integer getUserType() {
-    return userType;
+  private Integer userAge;
+  private String userSex;
+  private String userNum;
+  private String userTel;
+  private String userDate;
+  private String userAddress;
+  private String userCountry;
+  private String userPassword;
+  private Integer uservaluecarId;
+  private String userSuDate;
+  private Integer uservalueId;
+  private Integer userroles;
+
+  public Integer getUserroles() {
+    return userroles;
   }
 
-  public void setUserType(Integer userType) {
-    this.userType = userType;
-  }
-
-  @Override
-  public String toString() {
-    return "User{" +
-            "userId=" + userId +
-            ", userName='" + userName + '\'' +
-            ", userAge=" + userAge +
-            ", userSex='" + userSex + '\'' +
-            ", userNum=" + userNum +
-            ", userTel=" + userTel +
-            ", userDate='" + userDate + '\'' +
-            ", userAddress='" + userAddress + '\'' +
-            ", userCountry='" + userCountry + '\'' +
-            ", userPassword='" + userPassword + '\'' +
-            ", uservaluecarId=" + uservaluecarId +
-            ", userSuDate='" + userSuDate + '\'' +
-            ", uservalueId=" + uservalueId +
-            ", userType=" + userType +
-            ", userJingDu=" + userJingDu +
-            ", type=" + type +
-            '}';
+  public void setUserroles(Integer userroles) {
+    this.userroles = userroles;
   }
 }

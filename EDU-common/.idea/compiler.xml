@@ -12,6 +12,9 @@
         <module name="school-common" />
         <module name="school-comsumer" />
         <module name="school-provider" />
+        <module name="user-common" />
+        <module name="user-consumer" />
+        <module name="user-provier" />
       </profile>
     </annotationProcessing>
   </component>
