@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tcmp.dao.AboutMapper">
+
+    <resultMap id="AboutMap" type="About" autoMapping="true">
+        <id property="aboutId" column="aboutId"/>
+        <association property="coach" resultMap="coachMap"/>
+        <association property="user" resultMap="userMap"/>
+    </resultMap>
+
+    <resultMap id="coachMap" type="Coach" autoMapping="true">
+        <id column="coachId" property="coachId"/>
+        <association property="car" resultMap="carMap"/>
+    </resultMap>
+
+    <resultMap id="userMap" type="User" autoMapping="true">
+        <id property="userId" column="userId"/>
+    </resultMap>
+
+    <resultMap id="carMap" type="Car" autoMapping="true">
+        <id column="carId" property="carId"/>
+    </resultMap>
+
+    <select id="queryAll"   resultMap="AboutMap">
+    SELECT a.aboutDate, co.coathName,u.userName,c.carNum,c.parkinglot, a.eight,a.twelve,a.fifteen FROM about a,coach co,USER u,car c WHERE a.coachId=co.coachId AND u.userId=a.userId AND co.carId=c.carId
+    /*AND co.coathName LIKE CONCAT ('%','张','%')*/
+    </select>
+</mapper>

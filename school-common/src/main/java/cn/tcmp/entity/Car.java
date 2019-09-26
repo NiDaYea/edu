@@ -80,6 +80,15 @@ public class Car implements Serializable {
   private Type type1;
   private Type type2;
   private Coach coach;
+  private String parkinglot;
+
+  public String getParkinglot() {
+    return parkinglot;
+  }
+
+  public void setParkinglot(String parkinglot) {
+    this.parkinglot = parkinglot;
+  }
 
   public Coach getCoach() {
     return coach;

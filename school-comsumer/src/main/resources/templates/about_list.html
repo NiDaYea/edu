@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>约车管理</title>
+    <script src="/js/jquery-2.1.4.min.js"></script>
+    <link rel="stylesheet" href="/js/css/bootstrap.css">
+    <script src="/js/js/bootstrap.js"></script>
+    <script src="/js/page.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("button[name='jkl']").click(function () {
+                var pages = $("#fff").val();
+                var pageno = $(this).attr("no");
+                pages = parseInt(pages);
+                pageno = parseInt(pageno);
+                if (pageno <= 1) {
+                    pageno = 1;
+                }
+                if (pages <= pageno) {
+                    pageno = pages;
+                }
+                location.href = 'queryAbout?pageNo=' + pageno ;
+            })
+        })
+                </script>
+</head>
+<body>
+<center>
+<table class="table table-striped table-bordered" >
+    <tr align="center">
+        <th style="text-align: center">约车日期</th>
+        <th style="text-align: center">教练姓名</th>
+        <th style="text-align: center">教练车牌</th>
+        <th style="text-align: center">车辆位置</th>
+        <th style="text-align: center">学生姓名</th>
+
+    </tr>
+    <tr th:each="list:${pageUtil.list}" th:object="${list}">
+        <td align="center">
+            <span th:text="*{aboutDate}"></span>
+            <span>|</span>
+            <span th:if="*{eight eq 'yes'}">8:00-12:00</span>
+            <span th:if="*{twelve eq 'yes'}">12:00-15:00</span>
+            <span th:if="*{fifteen eq 'yes'}">15:00-18:00</span>
+        </td>
+        <td th:text="*{coach.coathName}" align="center"></td>
+        <td th:text="*{coach.car.carNum}" align="center"></td>
+        <td th:text="*{coach.car.parkinglot}" align="center"></td>
+        <td th:text="*{user.userName}" align="center"></td>
+    </tr>
+</table>
+    <button name="jkl" th:no="1" class="btn btn-primary">首页</button>
+    <button name="jkl" th:no="${pageUtil.pageNo-1}" class="btn btn-primary">上一页</button>
+    <button name="jkl" th:no="${pageUtil.pageNo+1}" class="btn btn-primary">下一页</button>
+    <button name="jkl" th:no="${pageUtil.totalPageCount}" class="btn btn-primary">尾页</button>
+    <input type="hidden" id="fff" th:value="${pageUtil.totalPageCount}">
+</center>
+</body>
+</html>

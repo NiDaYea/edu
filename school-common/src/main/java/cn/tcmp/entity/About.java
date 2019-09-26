@@ -17,6 +17,26 @@ public class About implements Serializable {
   private String eight;
   private String twelve;
   private String fifteen;
+  //后台约车外键表
+  private Coach coach;
+  private User user;
+
+
+  public Coach getCoach() {
+    return coach;
+  }
+
+  public void setCoach(Coach coach) {
+    this.coach = coach;
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
 
   public Integer getAboutId() {
     return aboutId;
